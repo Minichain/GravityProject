@@ -74,6 +74,8 @@ public class InputListenerManager {
             public void invoke(long window, double xOffset, double yOffset) {
                 mouseWheelPosition += yOffset;
                 if (mouseWheelPosition < 0) mouseWheelPosition = 0;
+
+                Camera.setZoom(Camera.getZoom() + 0.1 * yOffset * Camera.getZoom());
             }
         };
 
@@ -124,15 +126,19 @@ public class InputListenerManager {
     private static void setKeyPressed(int key, boolean pressed) {
         switch(key) {
             case GLFW_KEY_W:
+                Camera.setObjectCentered(-1);
                 W_KEY_PRESSED = pressed;
                 break;
             case GLFW_KEY_A:
+                Camera.setObjectCentered(-1);
                 A_KEY_PRESSED = pressed;
                 break;
             case GLFW_KEY_S:
+                Camera.setObjectCentered(-1);
                 S_KEY_PRESSED = pressed;
                 break;
             case GLFW_KEY_D:
+                Camera.setObjectCentered(-1);
                 D_KEY_PRESSED = pressed;
                 break;
             case GLFW_KEY_SPACE:
@@ -170,18 +176,25 @@ public class InputListenerManager {
             case GLFW_KEY_F12:
                 break;
             case GLFW_KEY_1:
+                Camera.setObjectCentered(1);
                 break;
             case GLFW_KEY_2:
+                Camera.setObjectCentered(2);
                 break;
             case GLFW_KEY_3:
+                Camera.setObjectCentered(3);
                 break;
             case GLFW_KEY_4:
+                Camera.setObjectCentered(4);
+                break;
+            case GLFW_KEY_5:
+                Camera.setObjectCentered(5);
                 break;
             case GLFW_KEY_UP:
-                if (pressed) Camera.setZoom(Camera.getZoom() + 0.1);
+                if (pressed) Camera.setZoom(Camera.getZoom() + 0.1 * Camera.getZoom());
                 break;
             case GLFW_KEY_DOWN:
-                if (pressed) Camera.setZoom(Camera.getZoom() - 0.1);
+                if (pressed) Camera.setZoom(Camera.getZoom() - 0.1 * Camera.getZoom());
                 break;
         }
     }

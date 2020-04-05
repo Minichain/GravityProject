@@ -1,5 +1,6 @@
 package scene;
 
+import entities.Mass;
 import listeners.InputListenerManager;
 import main.Coordinates;
 import main.Parameters;
@@ -66,27 +67,25 @@ public class Camera {
         this.setCoordinates(2500, 2500);
     }
 
+    public static int objectCentered = -1;
+
     public void update(long timeElapsed) {
-        if (false) {
-//            double[] cameraVelocityVector = new double[2];
-//            cameraVelocityVector[0] = Player.getInstance().getCenterOfMassWorldCoordinates().x - Camera.getInstance().getCoordinates().x;
-//            cameraVelocityVector[1] = Player.getInstance().getCenterOfMassWorldCoordinates().y - Camera.getInstance().getCoordinates().y;
-//            double cameraSpeed = MathUtils.module(cameraVelocityVector) * followingSpeed * timeElapsed;
-//            cameraVelocityVector = MathUtils.normalizeVector(cameraVelocityVector);
-//
-////            System.out.println("ElwynGraphicsLog:: cameraVelocityVector: " + cameraVelocityVector[0] + ", " + cameraVelocityVector[1]);
-////            System.out.println("ElwynGraphicsLog:: cameraVelocityVector after applying cameraSpeed: " + cameraVelocityVector[0] * cameraSpeed + ", " + cameraVelocityVector[1] * cameraSpeed);
-//            if (Double.isNaN(cameraVelocityVector[0]) || Double.isNaN(cameraVelocityVector[1])) {
-//                return;
-//            }
-//
-//            Camera.getInstance().setCoordinates((Camera.getInstance().getCoordinates().x + (cameraVelocityVector[0] * cameraSpeed)),
-//                    (Camera.getInstance().getCoordinates().y + (cameraVelocityVector[1] * cameraSpeed)));
-        } else {
+        if (objectCentered == -1) {
             double[] movement = computeMovementVector(timeElapsed, freeCameraSpeed);
-            Camera.getInstance().setCoordinates((Camera.getInstance().getCoordinates().x + (movement[0])),
-                    (Camera.getInstance().getCoordinates().y + (movement[1])));
+            Camera.getInstance().setCoordinates((Camera.getInstance().getCoordinates().x + (movement[0] / getZoom())),
+                    (Camera.getInstance().getCoordinates().y + (movement[1] / getZoom())));
+        } else {
+            if (objectCentered > Scene.getMassEntites().size()) {
+                objectCentered = -1;
+            } else {
+                Mass massToCenter = Scene.getMassEntites().get(objectCentered - 1);
+                Camera.getInstance().setCoordinates(massToCenter.getWorldCoordinates().x, massToCenter.getWorldCoordinates().y);
+            }
         }
+    }
+
+    public static void setObjectCentered(int objectCentered) {
+        Camera.objectCentered = objectCentered;
     }
 
     public double[] computeMovementVector(long timeElapsed, double speed) {

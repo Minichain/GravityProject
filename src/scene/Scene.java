@@ -17,21 +17,7 @@ public class Scene {
 
     private Scene() {
         initialCoordinates = new Coordinates(2500, 2500);
-        massEntites =  new ArrayList<>();
-        new Mass("S1", initialCoordinates.x, initialCoordinates.y, 1980000000, 10000000, new double[]{0, 0});
-        new Mass("P1", initialCoordinates.x - 100, initialCoordinates.y, 10, 50, new double[]{0, -0.075});
-        new Mass("P2", initialCoordinates.x - 200, initialCoordinates.y, 10, 50, new double[]{0, -0.075});
-        new Mass("P3", initialCoordinates.x - 300, initialCoordinates.y, 20, 50, new double[]{0, -0.075});
-        new Mass("P4", initialCoordinates.x - 400, initialCoordinates.y, 40, 50, new double[]{0, -0.075});
-        new Mass("P5", initialCoordinates.x - 500, initialCoordinates.y, 30, 50, new double[]{0, -0.075});
-        new Mass("P6", initialCoordinates.x - 600, initialCoordinates.y, 30, 50, new double[]{0, -0.075});
-        new Mass("P7", initialCoordinates.x - 700, initialCoordinates.y, 30, 50, new double[]{0, -0.075});
-        new Mass("P8", initialCoordinates.x - 800, initialCoordinates.y, 30, 50, new double[]{0, -0.075});
-        new Mass("P9", initialCoordinates.x - 900, initialCoordinates.y, 100, 50, new double[]{0, -0.075});
-        new Mass("P10", initialCoordinates.x - 1000, initialCoordinates.y, 100, 50, new double[]{0, -0.075});
-        new Mass("P11", initialCoordinates.x - 1100, initialCoordinates.y, 100, 50, new double[]{0, -0.075});
-        new Mass("P12", initialCoordinates.x - 1200, initialCoordinates.y, 100, 50, new double[]{0, -0.075});
-
+        initEntities();
     }
 
     public static Scene getInstance() {
@@ -58,7 +44,11 @@ public class Scene {
     }
 
     public void initEntities() {
-        Camera.getInstance().reset();
+        massEntites =  new ArrayList<>();
+        new Mass("Sun", initialCoordinates.x, initialCoordinates.y, 1000000000, 1000, new double[]{0, 0});
+        new Mass("Mercury", initialCoordinates.x - 400, initialCoordinates.y, 100000, 1000, new double[]{0, 0.16});
+        new Mass("Venus", initialCoordinates.x - 800, initialCoordinates.y, 100000, 1000, new double[]{0, 0.155});
+        new Mass("Earth", initialCoordinates.x - 1200, initialCoordinates.y, 500000, 1000, new double[]{0, 0.15});
     }
 
     public void render() {

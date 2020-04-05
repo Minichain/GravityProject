@@ -24,7 +24,7 @@ public class Mass {
     private double[] totalForce;
 
     /** GRAVITATIONAL CONSTANT **/
-    public static double G = 0.0000000000667408;
+    public static double G = 0.000000000667408;
 
     public Mass(String name, double x, double y, double mass, double density, double[] velocity) {
         worldCoordinates = new Coordinates(x, y);
@@ -34,7 +34,6 @@ public class Mass {
         this.mass = mass;
         this.volume = mass / density;
         this.radius = Math.pow((3.0 * volume) / (4.0 * Math.PI), 1.0/ 3.0);
-        this.radius *= 10;
         this.velocity = velocity;
         Scene.getMassEntites().add(this);
     }
@@ -100,20 +99,23 @@ public class Mass {
 //        glVertex2d(cameraCoordinates.x + this.totalForce[0] * 2500 * Camera.getZoom(), cameraCoordinates.y + this.totalForce[1] * 2500 * Camera.getZoom());
 
             /** VELOCITY **/
+
+            double factor = 500;
+
             glColor4f(1f, 0f, 0f, 1f);
             glVertex2d(cameraCoordinates.x, cameraCoordinates.y);
-            glVertex2d(cameraCoordinates.x, cameraCoordinates.y + this.velocity[1] * 250 * Camera.getZoom());
+            glVertex2d(cameraCoordinates.x, cameraCoordinates.y + this.velocity[1] * factor * Camera.getZoom());
             glColor4f(0f, 1f, 0f, 1f);
             glVertex2d(cameraCoordinates.x, cameraCoordinates.y);
-            glVertex2d(cameraCoordinates.x + this.velocity[0] * 250 * Camera.getZoom(), cameraCoordinates.y);
+            glVertex2d(cameraCoordinates.x + this.velocity[0] * factor * Camera.getZoom(), cameraCoordinates.y);
             glColor4f(1f, 1f, 1f, 1f);
             glVertex2d(cameraCoordinates.x, cameraCoordinates.y);
-            glVertex2d(cameraCoordinates.x + this.velocity[0] * 250 * Camera.getZoom(), cameraCoordinates.y + this.velocity[1] * 250 * Camera.getZoom());
+            glVertex2d(cameraCoordinates.x + this.velocity[0] * factor * Camera.getZoom(), cameraCoordinates.y + this.velocity[1] * factor * Camera.getZoom());
 
             glEnd();
         }
 
-        TextRendering.renderText((int) cameraCoordinates.x, (int) cameraCoordinates.y + 5, name, 1);
+        TextRendering.renderText((int) cameraCoordinates.x, (int) (cameraCoordinates.y + radius * Camera.getZoom()), name, 1);
     }
 
     public double getMass() {
