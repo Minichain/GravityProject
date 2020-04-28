@@ -1,5 +1,6 @@
 package listeners;
 
+import entities.Mass;
 import scene.Camera;
 import scene.Scene;
 import main.*;
@@ -95,6 +96,9 @@ public class InputListenerManager {
 
     private static void processLeftMouseButtonPressed() {
         leftMouseButtonPressed = true;
+        if (ApplicationStatus.getStatus() == ApplicationStatus.Status.RUNNING) {
+            new Mass("Earth", getMouseWorldCoordinates().x, getMouseWorldCoordinates().y, 500000, 1000, new double[]{0, 0.15});
+        }
     }
 
     private static void processLeftMouseButtonReleased() {
@@ -153,13 +157,20 @@ public class InputListenerManager {
                 if (pressed) Parameters.setDebugMode(!Parameters.isDebugMode());
                 break;
             case GLFW_KEY_F2:
+                if (pressed) {
+                    if (ApplicationStatus.getStatus() == ApplicationStatus.Status.RUNNING) {
+                        ApplicationStatus.setStatus(ApplicationStatus.Status.PAUSED);
+                    } else if (ApplicationStatus.getStatus() == ApplicationStatus.Status.PAUSED) {
+                        ApplicationStatus.setStatus(ApplicationStatus.Status.RUNNING);
+                    }
+                }
                 break;
             case GLFW_KEY_F3:
                 break;
             case GLFW_KEY_F4:
-                if (pressed) Scene.getInstance().initEntities();
                 break;
             case GLFW_KEY_F5:
+                if (pressed) Scene.getInstance().initEntities();
                 break;
             case GLFW_KEY_F6:
                 break;

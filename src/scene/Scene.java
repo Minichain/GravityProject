@@ -49,6 +49,8 @@ public class Scene {
         new Mass("Mercury", initialCoordinates.x - 400, initialCoordinates.y, 100000, 1000, new double[]{0, 0.16});
         new Mass("Venus", initialCoordinates.x - 800, initialCoordinates.y, 100000, 1000, new double[]{0, 0.155});
         new Mass("Earth", initialCoordinates.x - 1200, initialCoordinates.y, 500000, 1000, new double[]{0, 0.15});
+//        new Mass("S1", initialCoordinates.x - 1206, initialCoordinates.y, 4, 1000, new double[]{0, 0.155});
+//        new Mass("S2", initialCoordinates.x - 1206.5, initialCoordinates.y, 4, 1000, new double[]{0, 0.154});
     }
 
     public void render() {
